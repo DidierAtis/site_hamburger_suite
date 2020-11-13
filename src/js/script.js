@@ -32,4 +32,58 @@ document.addEventListener("DOMContentLoaded", function(event) {
     ]
 
 
+
+    if (document.querySelector('.page-item'))
+    {
+        initialiserItem();
+    }
+
+   function initialiserItem()
+   {
+       var url = window.location.search;
+       console.log(url);
+
+       var params = new URLSearchParams(url);
+       console.log(params);
+
+       //quel type de contenu
+       var type = params.get('type');
+       console.log(type);
+
+       var contenu = informations.find(element => element.id === type);
+       console.log(contenu);
+
+       var title = document.querySelector('.main-title');
+       title.innerHTML = contenu.title;
+
+       var slogan = document.querySelector('.sub-title');
+       slogan.innerHTML = contenu.slogan;
+
+       var desc = document.querySelector('.sub-description p');
+       desc.innerHTML = contenu.description;
+
+       var image = document.querySelector('.sub-image img');
+       image.src = contenu.image;
+
+       var list = document.querySelector('.type-list');
+       list.innerHTML="";
+
+       for(let  g = 0; g < contenu.type.length; g++)
+       {
+           let li = document.createElement('li');
+           li.innerHTML = contenu.type[g];
+
+           list.appendChild(li);
+       }
+
+
+       var thumbnails = document.querySelectorAll('.thumb img');
+       for (let i = 0; i < thumbnails.length;i++ )
+       {
+           var thumb = thumbnails[i];
+
+           thumb.src = contenu.gallery[i];
+
+       }
+   }
 });
